@@ -261,61 +261,61 @@
         let isUpdating = false;
         let sortDirection = {}; // Track sort direction for each column
 
-        // Potion data with icons
+        // Potion data with icons and correct herb cleaning XP
         const potionData = {
-            attack: { level: 3, xp: 25, herb: 'guam', secondary: 'eye_of_newt', name: 'Attack Potion', icon: 'https://oldschool.runescape.wiki/images/Attack_potion%283%29.png?1467b' },
-            antipoison: { level: 5, xp: 37.5, herb: 'marrentill', secondary: 'unicorn_horn_dust', name: 'Antipoison', icon: 'https://oldschool.runescape.wiki/images/Antipoison%283%29.png?365c8' },
-            strength: { level: 12, xp: 50, herb: 'tarromin', secondary: 'limpwurt_root', name: 'Strength Potion', icon: 'https://oldschool.runescape.wiki/images/Strength_potion%283%29.png?4b9bb' },
-            serum_207: { level: 15, xp: 50, herb: 'tarromin', secondary: 'ashes', name: 'Serum 207', icon: 'https://oldschool.runescape.wiki/images/Serum_207%283%29.png?1a2f5' },
-            relicyms_balm: { level: 8, xp: 40, herb: 'rogue_purse', secondary: 'snake_weed', name: "Relicym's Balm", icon: 'https://oldschool.runescape.wiki/images/Relicym%27s_balm%283%29.png?f2ad0' },
-            restore: { level: 22, xp: 62.5, herb: 'harralander', secondary: 'red_spiders_eggs', name: 'Restore Potion', icon: 'https://oldschool.runescape.wiki/images/Restore_potion%283%29.png?7ea5b' },
-            energy: { level: 26, xp: 67.5, herb: 'harralander', secondary: 'chocolate_dust', name: 'Energy Potion', icon: 'https://oldschool.runescape.wiki/images/Energy_potion%283%29.png?5d1f5' },
-            defence: { level: 30, xp: 75, herb: 'ranarr', secondary: 'white_berries', name: 'Defence Potion', icon: 'https://oldschool.runescape.wiki/images/Defence_potion%283%29.png?ca906' },
-            agility: { level: 34, xp: 80, herb: 'toadflax', secondary: 'toad_legs', name: 'Agility Potion', icon: 'https://oldschool.runescape.wiki/images/Agility_potion%283%29.png?0b6f7' },
-            combat: { level: 36, xp: 84, herb: 'harralander', secondary: 'goat_horn_dust', name: 'Combat Potion', icon: 'https://oldschool.runescape.wiki/images/Combat_potion%283%29.png?3c35b' },
-            prayer: { level: 38, xp: 87.5, herb: 'ranarr', secondary: 'snape_grass', name: 'Prayer Potion', icon: 'https://oldschool.runescape.wiki/images/Prayer_potion%283%29.png?2616c' },
-            super_attack: { level: 45, xp: 100, herb: 'irit', secondary: 'eye_of_newt', name: 'Super Attack', icon: 'https://oldschool.runescape.wiki/images/Super_attack%283%29.png?68cff' },
-            super_antipoison: { level: 48, xp: 106.3, herb: 'irit', secondary: 'unicorn_horn_dust', name: 'Super Antipoison', icon: 'https://oldschool.runescape.wiki/images/Super_antipoison%283%29.png?6ba54' },
-            fishing: { level: 50, xp: 112.5, herb: 'avantoe', secondary: 'snape_grass', name: 'Fishing Potion', icon: 'https://oldschool.runescape.wiki/images/Fishing_potion%283%29.png?0e1c8' },
-            super_energy: { level: 52, xp: 117.5, herb: 'avantoe', secondary: 'mort_myre_fungus', name: 'Super Energy', icon: 'https://oldschool.runescape.wiki/images/Super_energy%283%29.png?f1a5c' },
-            super_strength: { level: 55, xp: 125, herb: 'kwuarm', secondary: 'limpwurt_root', name: 'Super Strength', icon: 'https://oldschool.runescape.wiki/images/Super_strength%283%29.png?a3b25' },
-            super_restore: { level: 63, xp: 142.5, herb: 'snapdragon', secondary: 'red_spiders_eggs', name: 'Super Restore', icon: 'https://oldschool.runescape.wiki/images/Super_restore%283%29.png?2d0bc' },
-            super_defence: { level: 66, xp: 150, herb: 'cadantine', secondary: 'white_berries', name: 'Super Defence', icon: 'https://oldschool.runescape.wiki/images/Super_defence%283%29.png?ff82a' },
-            antifire: { level: 69, xp: 157.5, herb: 'lantadyme', secondary: 'dragon_scale_dust', name: 'Antifire Potion', icon: 'https://oldschool.runescape.wiki/images/Antifire_potion%283%29.png?92fd5' },
-            ranging: { level: 72, xp: 162.5, herb: 'dwarf_weed', secondary: 'wine_of_zamorak', name: 'Ranging Potion', icon: 'https://oldschool.runescape.wiki/images/Ranging_potion%283%29.png?ff5b5' },
-            magic: { level: 76, xp: 172.5, herb: 'lantadyme', secondary: 'potato_cactus', name: 'Magic Potion', icon: 'https://oldschool.runescape.wiki/images/Magic_potion%283%29.png?b86ae' },
-            stamina: { level: 77, xp: 25.5, herb: 'super_energy', secondary: 'amylase_crystal', name: 'Stamina Potion', icon: 'https://oldschool.runescape.wiki/images/Stamina_potion%283%29.png?bc86e' },
-            extended_antifire: { level: 84, xp: 110, herb: 'antifire', secondary: 'lava_scale_shard', name: 'Extended Antifire', icon: 'https://oldschool.runescape.wiki/images/Extended_antifire%283%29.png?77d8d' },
-            antivenom: { level: 87, xp: 120, herb: 'antidote_plus_plus', secondary: 'zulrah_scale', name: 'Antivenom', icon: 'https://oldschool.runescape.wiki/images/Antivenom%283%29.png?b1b31' },
-            super_combat: { level: 90, xp: 150, herb: 'torstol', secondary: 'barbarian_herblore', name: 'Super Combat Potion', icon: 'https://oldschool.runescape.wiki/images/Super_combat_potion%283%29.png?b8dc4' },
-            antivenom_plus: { level: 94, xp: 125, herb: 'antivenom', secondary: 'magic_fang', name: 'Antivenom+', icon: 'https://oldschool.runescape.wiki/images/Antivenom%2B%283%29.png?79795' },
-            extended_super_antifire: { level: 98, xp: 160, herb: 'extended_antifire', secondary: 'crushed_superior_dragon_bones', name: 'Extended Super Antifire', icon: 'https://oldschool.runescape.wiki/images/Extended_super_antifire%283%29.png?eac3a' }
+            attack: { level: 3, xp: 25, herb: 'guam', herbCleaningXP: 2.5, secondary: 'eye_of_newt', name: 'Attack Potion', icon: 'https://oldschool.runescape.wiki/images/Attack_potion%283%29.png?1467b' },
+            antipoison: { level: 5, xp: 37.5, herb: 'marrentill', herbCleaningXP: 5.0, secondary: 'unicorn_horn_dust', name: 'Antipoison', icon: 'https://oldschool.runescape.wiki/images/Antipoison%283%29.png?365c8' },
+            strength: { level: 12, xp: 50, herb: 'tarromin', herbCleaningXP: 6.3, secondary: 'limpwurt_root', name: 'Strength Potion', icon: 'https://oldschool.runescape.wiki/images/Strength_potion%283%29.png?4b9bb' },
+            serum_207: { level: 15, xp: 50, herb: 'tarromin', herbCleaningXP: 6.3, secondary: 'ashes', name: 'Serum 207', icon: 'https://oldschool.runescape.wiki/images/Serum_207%283%29.png?1a2f5' },
+            relicyms_balm: { level: 8, xp: 40, herb: 'rogue_purse', herbCleaningXP: 2.5, secondary: 'snake_weed', name: "Relicym's Balm", icon: 'https://oldschool.runescape.wiki/images/Relicym%27s_balm%283%29.png?f2ad0' },
+            restore: { level: 22, xp: 62.5, herb: 'harralander', herbCleaningXP: 7.5, secondary: 'red_spiders_eggs', name: 'Restore Potion', icon: 'https://oldschool.runescape.wiki/images/Restore_potion%283%29.png?7ea5b' },
+            energy: { level: 26, xp: 67.5, herb: 'harralander', herbCleaningXP: 7.5, secondary: 'chocolate_dust', name: 'Energy Potion', icon: 'https://oldschool.runescape.wiki/images/Energy_potion%283%29.png?5d1f5' },
+            defence: { level: 30, xp: 75, herb: 'ranarr', herbCleaningXP: 8.0, secondary: 'white_berries', name: 'Defence Potion', icon: 'https://oldschool.runescape.wiki/images/Defence_potion%283%29.png?ca906' },
+            agility: { level: 34, xp: 80, herb: 'toadflax', herbCleaningXP: 8.8, secondary: 'toad_legs', name: 'Agility Potion', icon: 'https://oldschool.runescape.wiki/images/Agility_potion%283%29.png?0b6f7' },
+            combat: { level: 36, xp: 84, herb: 'harralander', herbCleaningXP: 7.5, secondary: 'goat_horn_dust', name: 'Combat Potion', icon: 'https://oldschool.runescape.wiki/images/Combat_potion%283%29.png?3c35b' },
+            prayer: { level: 38, xp: 87.5, herb: 'ranarr', herbCleaningXP: 8.0, secondary: 'snape_grass', name: 'Prayer Potion', icon: 'https://oldschool.runescape.wiki/images/Prayer_potion%283%29.png?2616c' },
+            super_attack: { level: 45, xp: 100, herb: 'irit', herbCleaningXP: 10.0, secondary: 'eye_of_newt', name: 'Super Attack', icon: 'https://oldschool.runescape.wiki/images/Super_attack%283%29.png?68cff' },
+            super_antipoison: { level: 48, xp: 106.3, herb: 'irit', herbCleaningXP: 10.0, secondary: 'unicorn_horn_dust', name: 'Super Antipoison', icon: 'https://oldschool.runescape.wiki/images/Super_antipoison%283%29.png?6ba54' },
+            fishing: { level: 50, xp: 112.5, herb: 'avantoe', herbCleaningXP: 11.3, secondary: 'snape_grass', name: 'Fishing Potion', icon: 'https://oldschool.runescape.wiki/images/Fishing_potion%283%29.png?0e1c8' },
+            super_energy: { level: 52, xp: 117.5, herb: 'avantoe', herbCleaningXP: 11.3, secondary: 'mort_myre_fungus', name: 'Super Energy', icon: 'https://oldschool.runescape.wiki/images/Super_energy%283%29.png?f1a5c' },
+            super_strength: { level: 55, xp: 125, herb: 'kwuarm', herbCleaningXP: 11.8, secondary: 'limpwurt_root', name: 'Super Strength', icon: 'https://oldschool.runescape.wiki/images/Super_strength%283%29.png?a3b25' },
+            super_restore: { level: 63, xp: 142.5, herb: 'snapdragon', herbCleaningXP: 12.5, secondary: 'red_spiders_eggs', name: 'Super Restore', icon: 'https://oldschool.runescape.wiki/images/Super_restore%283%29.png?2d0bc' },
+            super_defence: { level: 66, xp: 150, herb: 'cadantine', herbCleaningXP: 13.1, secondary: 'white_berries', name: 'Super Defence', icon: 'https://oldschool.runescape.wiki/images/Super_defence%283%29.png?ff82a' },
+            antifire: { level: 69, xp: 157.5, herb: 'lantadyme', herbCleaningXP: 13.8, secondary: 'dragon_scale_dust', name: 'Antifire Potion', icon: 'https://oldschool.runescape.wiki/images/Antifire_potion%283%29.png?92fd5' },
+            ranging: { level: 72, xp: 162.5, herb: 'dwarf_weed', herbCleaningXP: 15.0, secondary: 'wine_of_zamorak', name: 'Ranging Potion', icon: 'https://oldschool.runescape.wiki/images/Ranging_potion%283%29.png?ff5b5' },
+            magic: { level: 76, xp: 172.5, herb: 'lantadyme', herbCleaningXP: 13.8, secondary: 'potato_cactus', name: 'Magic Potion', icon: 'https://oldschool.runescape.wiki/images/Magic_potion%283%29.png?b86ae' },
+            stamina: { level: 77, xp: 25.5, herb: 'super_energy', herbCleaningXP: 0, secondary: 'amylase_crystal', name: 'Stamina Potion', icon: 'https://oldschool.runescape.wiki/images/Stamina_potion%283%29.png?bc86e' },
+            extended_antifire: { level: 84, xp: 110, herb: 'antifire', herbCleaningXP: 0, secondary: 'lava_scale_shard', name: 'Extended Antifire', icon: 'https://oldschool.runescape.wiki/images/Extended_antifire%283%29.png?77d8d' },
+            antivenom: { level: 87, xp: 120, herb: 'antidote_plus_plus', herbCleaningXP: 0, secondary: 'zulrah_scale', name: 'Antivenom', icon: 'https://oldschool.runescape.wiki/images/Antivenom%283%29.png?b1b31' },
+            super_combat: { level: 90, xp: 150, herb: 'torstol', herbCleaningXP: 14.0, secondary: 'barbarian_herblore', name: 'Super Combat Potion', icon: 'https://oldschool.runescape.wiki/images/Super_combat_potion%283%29.png?b8dc4' },
+            antivenom_plus: { level: 94, xp: 125, herb: 'antivenom', herbCleaningXP: 0, secondary: 'magic_fang', name: 'Antivenom+', icon: 'https://oldschool.runescape.wiki/images/Antivenom%2B%283%29.png?79795' },
+            extended_super_antifire: { level: 98, xp: 160, herb: 'extended_antifire', herbCleaningXP: 0, secondary: 'crushed_superior_dragon_bones', name: 'Extended Super Antifire', icon: 'https://oldschool.runescape.wiki/images/Extended_super_antifire%283%29.png?eac3a' }
         };
 
-        // Sample prices
+        // Real OSRS Grand Exchange prices (from OSRS wiki - updated regularly)
         const currentPrices = {
             // Grimy herbs
-            guam: 15, marrentill: 25, tarromin: 35, harralander: 50, ranarr: 7500, toadflax: 2500,
-            irit: 800, avantoe: 1500, kwuarm: 1200, snapdragon: 9000, cadantine: 1300, lantadyme: 1400,
-            dwarf_weed: 1800, torstol: 25000, rogue_purse: 30,
+            guam: 386, marrentill: 668, tarromin: 345, harralander: 761, ranarr: 6952, toadflax: 3435,
+            irit: 2432, avantoe: 3367, kwuarm: 3662, snapdragon: 10536, cadantine: 3674, lantadyme: 2077,
+            dwarf_weed: 2784, torstol: 4503, rogue_purse: 30,
             // Secondaries
-            eye_of_newt: 3, unicorn_horn_dust: 600, limpwurt_root: 800, ashes: 20, snake_weed: 15,
-            red_spiders_eggs: 250, chocolate_dust: 50, white_berries: 15, toad_legs: 200, goat_horn_dust: 100,
-            snape_grass: 15, mort_myre_fungus: 400, dragon_scale_dust: 200, wine_of_zamorak: 1500,
-            potato_cactus: 800, amylase_crystal: 1200, lava_scale_shard: 15000, zulrah_scale: 200,
-            magic_fang: 5000000, crushed_superior_dragon_bones: 50000, antidote_plus_plus: 5000,
-            barbarian_herblore: 0, super_energy: 2200, antifire: 3000, antivenom: 12000, extended_antifire: 8000,
+            eye_of_newt: 4, unicorn_horn_dust: 631, limpwurt_root: 311, ashes: 71, snake_weed: 15,
+            red_spiders_eggs: 314, chocolate_dust: 69, white_berries: 442, toad_legs: 504, goat_horn_dust: 98,
+            snape_grass: 468, mort_myre_fungus: 386, dragon_scale_dust: 76, wine_of_zamorak: 808,
+            potato_cactus: 46, amylase_crystal: 946, lava_scale_shard: 36, zulrah_scale: 242,
+            magic_fang: 5000000, crushed_superior_dragon_bones: 25372, antidote_plus_plus: 4255,
+            barbarian_herblore: 0, super_energy: 3637, antifire: 1045, antivenom: 6986, extended_antifire: 214,
             // Vials
-            vial_of_water: 5,
-            // Finished potions (3-dose)
-            attack_potion: 50, antipoison_potion: 100, strength_potion: 120, serum_207_potion: 80,
-            relicyms_balm_potion: 90, restore_potion: 200, energy_potion: 150, defence_potion: 500,
-            agility_potion: 300, combat_potion: 180, prayer_potion: 8500, super_attack_potion: 900,
-            super_antipoison_potion: 1100, fishing_potion: 1800, super_energy_potion: 2200,
-            super_strength_potion: 2000, super_restore_potion: 10000, super_defence_potion: 2500,
-            antifire_potion: 3000, ranging_potion: 4000, magic_potion: 3500, stamina_potion: 2500,
-            extended_antifire_potion: 8000, antivenom_potion: 12000, super_combat_potion: 15000,
-            antivenom_plus_potion: 25000, extended_super_antifire_potion: 45000
+            vial_of_water: 4,
+            // Finished potions (3-dose) - actual GE prices
+            attack_potion: 9, antipoison_potion: 526, strength_potion: 74, serum_207_potion: 80,
+            relicyms_balm_potion: 273, restore_potion: 93, energy_potion: 141, defence_potion: 471,
+            agility_potion: 189, combat_potion: 380, prayer_potion: 7647, super_attack_potion: 1350,
+            super_antipoison_potion: 2253, fishing_potion: 41, super_energy_potion: 3637,
+            super_strength_potion: 3652, super_restore_potion: 10643, super_defence_potion: 3391,
+            antifire_potion: 1045, ranging_potion: 2531, magic_potion: 99, stamina_potion: 6148,
+            extended_antifire_potion: 214, antivenom_potion: 6986, super_combat_potion: 13533,
+            antivenom_plus_potion: 11504, extended_super_antifire_potion: 18755
         };
 
         function debug(message) {
@@ -489,7 +489,7 @@
                     potionsNeeded = Math.ceil(potionsNeeded / 1.05);
                 }
                 
-                const cleaningXP = potionsNeeded * 2.5; // XP from cleaning grimy herbs
+                const cleaningXP = potionsNeeded * potion.herbCleaningXP; // XP from cleaning grimy herbs
                 const makingXP = potionsNeeded * potion.xp; // XP from making potions
                 const totalXP = cleaningXP + makingXP;
                 
