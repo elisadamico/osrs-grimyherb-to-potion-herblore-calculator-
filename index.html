@@ -3,342 +3,308 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OSRS Herblore Calculator</title>
+    <title>Grimy Herbs to Potions Calculator - OSRS</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            min-height: 100vh;
-            color: #333;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
+            font-family: Arial, sans-serif;
+            max-width: 1400px;
+            margin: 20px auto;
             padding: 20px;
+            background: linear-gradient(135deg, #f8fffe 0%, #fef7f7 100%);
         }
-
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-            color: white;
-        }
-
-        .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .card {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 20px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #555;
-        }
-
-        input, select {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: border-color 0.3s ease;
-        }
-
-        input:focus, select:focus {
-            outline: none;
-            border-color: #4CAF50;
-        }
-
-        .btn {
-            background: linear-gradient(45deg, #4CAF50, #45a049);
-            color: white;
-            padding: 12px 25px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            margin-right: 10px;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
-        }
-
-        .btn-secondary {
-            background: linear-gradient(45deg, #2196F3, #1976D2);
-        }
-
-        .btn-secondary:hover {
-            box-shadow: 0 5px 15px rgba(33, 150, 243, 0.4);
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .stat-card {
-            background: linear-gradient(45deg, #f8f9fa, #e9ecef);
-            padding: 15px;
-            border-radius: 10px;
-            text-align: center;
-            border: 2px solid #dee2e6;
-        }
-
-        .stat-value {
-            font-size: 1.5em;
-            font-weight: bold;
-            color: #2196F3;
-        }
-
-        .stat-label {
-            font-size: 0.9em;
-            color: #666;
-            margin-top: 5px;
-        }
-
-        .results-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        .results-table th,
-        .results-table td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .results-table th {
-            background: linear-gradient(45deg, #4CAF50, #45a049);
-            color: white;
-            font-weight: 600;
-        }
-
-        .results-table tr:hover {
-            background-color: #f5f5f5;
-        }
-
-        .profit {
-            color: #4CAF50;
-            font-weight: bold;
-        }
-
-        .loss {
-            color: #f44336;
-            font-weight: bold;
-        }
-
-        .loading {
-            text-align: center;
+        .test-section {
+            background: linear-gradient(135deg, #ffffff 0%, #fdf2f8 100%);
             padding: 20px;
-            color: #666;
-        }
-
-        .error {
-            background: #ffebee;
-            color: #c62828;
-            padding: 15px;
+            margin: 20px 0;
             border-radius: 8px;
-            margin-bottom: 20px;
-            border-left: 4px solid #f44336;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border: 1px solid #e8f5e8;
         }
-
-        .success {
-            background: #e8f5e8;
-            color: #2e7d32;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            border-left: 4px solid #4caf50;
+        
+        .test-section h2 {
+            background: linear-gradient(135deg, #fce7f3 0%, #f3e8ff 100%);
+            margin: -20px -20px 20px -20px;
+            padding: 15px 20px;
+            border-radius: 8px 8px 0 0;
+            color: #7c3aed;
+            font-size: 18px;
+            font-weight: bold;
+            border-bottom: 2px solid #e879f9;
         }
-
-        .grid {
+        .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            gap: 15px;
+            margin-bottom: 15px;
         }
-
-        @media (max-width: 768px) {
-            .grid {
-                grid-template-columns: 1fr;
-            }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input {
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            width: 100%;
+        }
+        input:focus {
+            border-color: #4CAF50;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+        }
+        .debug {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 12px;
+            margin-top: 10px;
+            max-height: 150px;
+            overflow-y: auto;
+        }
+        .potions-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            margin-top: 15px;
+        }
+        .potions-table th {
+            background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%);
+            color: white;
+            padding: 10px 6px;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            user-select: none;
+            position: relative;
+            text-align: center;
+            font-weight: bold;
+        }
+        .potions-table th:hover {
+            background: linear-gradient(135deg, #45a049 0%, #5da85d 100%);
+        }
+        .potions-table td {
+            padding: 8px 6px;
+            border: 1px solid #ddd;
+            text-align: center;
+            font-size: 12px;
+        }
+        .potions-table tr:nth-child(even) {
+            background: #fdf9f9;
+        }
+        .potions-table tr:hover {
+            background: linear-gradient(135deg, #f0f8f0 0%, #fdf5f5 100%);
+        }
+        .sort-indicator {
+            font-size: 10px;
+            margin-left: 5px;
+        }
+        .potion-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+            vertical-align: middle;
+            border-radius: 3px;
+        }
+        .profit { color: #4CAF50; font-weight: bold; }
+        .loss { color: #f44336; font-weight: bold; }
+        
+        /* Coming soon styles */
+        .coming-soon {
+            opacity: 0.7;
+            cursor: not-allowed;
+            position: relative;
+            background: linear-gradient(135deg, #ffffff 0%, #fef2f2 100%);
+            border: 1px solid #fecaca;
+        }
+        
+        .coming-soon input {
+            pointer-events: none;
+            background: linear-gradient(135deg, #fef2f2 0%, #fef7f7 100%);
+            color: #999;
+        }
+        
+        .coming-soon-text {
+            color: #888;
+            font-size: 12px;
+            font-style: italic;
+            margin-left: 5px;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>🧪 OSRS Herblore Calculator</h1>
-            <p>Calculate XP, costs, and profits from grimy herbs to finished potions</p>
+    <h1>🧪 Grimy Herbs to Potions Calculator</h1>
+    <p style="text-align: center; color: #666; margin-bottom: 10px;">Calculate XP, costs, and profits from grimy herbs to finished 3-dose potions</p>
+    <p style="text-align: center; color: #be185d; font-size: 14px; font-style: italic; margin-bottom: 30px;">Created by Kitten Lissy</p>
+    
+    <div class="test-section coming-soon">
+        <h2>Player Lookup</h2>
+        <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 10px;">
+            <div style="flex: 0 0 300px;">
+                <label for="username" style="display: block; margin-bottom: 5px; font-weight: bold;">OSRS Username:</label>
+                <input type="text" id="username" placeholder="Enter your username" disabled 
+                       style="width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 4px; font-size: 16px;">
+            </div>
+            <button disabled style="background: linear-gradient(135deg, #ccc 0%, #ddd 100%); color: #999; padding: 10px 20px; border: none; border-radius: 4px; font-size: 14px; cursor: not-allowed; margin-top: 25px;">
+                Import Stats
+            </button>
         </div>
-
-        <div class="card">
-            <h2>Player Information</h2>
-            <div class="form-group">
-                <label for="username">OSRS Username:</label>
-                <input type="text" id="username" placeholder="Enter your OSRS username">
+        <p style="color: #888; font-size: 14px; font-style: italic; margin: 0;">
+            Coming soon: Automatically import your Herblore level and XP from the OSRS hiscores
+        </p>
+    </div>
+    
+    <div class="test-section">
+        <h2>Current Stats</h2>
+        <div class="form-row">
+            <div>
+                <label for="currentLevel">Current Level (1-99):</label>
+                <input type="number" id="currentLevel" min="1" max="99" 
+                       placeholder="Enter level" 
+                       oninput="updateXPFromLevel('current')"
+                       onkeypress="handleEnterKey(event, 'current', 'level')">
             </div>
-            <div class="form-group">
-                <label for="targetLevel">Target Level:</label>
-                <input type="number" id="targetLevel" min="1" max="99" placeholder="Enter target herblore level">
-            </div>
-            <button class="btn" onclick="loadPlayerStats()">Load Player Stats</button>
-        </div>
-
-        <div id="playerStats" class="card" style="display: none;">
-            <h2>Current Stats</h2>
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-value" id="currentLevel">-</div>
-                    <div class="stat-label">Current Level</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value" id="currentXP">-</div>
-                    <div class="stat-label">Current XP</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value" id="targetXP">-</div>
-                    <div class="stat-label">Target XP</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value" id="xpNeeded">-</div>
-                    <div class="stat-label">XP Needed</div>
-                </div>
+            <div>
+                <label for="currentXP">Current XP:</label>
+                <input type="number" id="currentXP" min="0" 
+                       placeholder="Enter XP" 
+                       oninput="updateLevelFromXP('current')"
+                       onkeypress="handleEnterKey(event, 'current', 'xp')">
             </div>
         </div>
+    </div>
 
-        <div class="card">
-            <h2>Potion Selection</h2>
-            <div class="form-group">
-                <label for="potionType">Select Potion:</label>
-                <select id="potionType">
-                    <option value="">Choose a potion...</option>
-                    <option value="attack">Attack Potion</option>
-                    <option value="antipoison">Antipoison</option>
-                    <option value="strength">Strength Potion</option>
-                    <option value="serum_207">Serum 207</option>
-                    <option value="relicyms_balm">Relicym's Balm</option>
-                    <option value="restore">Restore Potion</option>
-                    <option value="energy">Energy Potion</option>
-                    <option value="defence">Defence Potion</option>
-                    <option value="agility">Agility Potion</option>
-                    <option value="combat">Combat Potion</option>
-                    <option value="prayer">Prayer Potion</option>
-                    <option value="super_attack">Super Attack</option>
-                    <option value="super_antipoison">Super Antipoison</option>
-                    <option value="fishing">Fishing Potion</option>
-                    <option value="super_energy">Super Energy</option>
-                    <option value="super_strength">Super Strength</option>
-                    <option value="super_restore">Super Restore</option>
-                    <option value="super_defence">Super Defence</option>
-                    <option value="antifire">Antifire Potion</option>
-                    <option value="ranging">Ranging Potion</option>
-                    <option value="magic">Magic Potion</option>
-                    <option value="stamina">Stamina Potion</option>
-                    <option value="extended_antifire">Extended Antifire</option>
-                    <option value="antivenom">Antivenom</option>
-                    <option value="super_combat">Super Combat Potion</option>
-                    <option value="antivenom_plus">Antivenom+</option>
-                    <option value="extended_super_antifire">Extended Super Antifire</option>
-                </select>
+    <div class="test-section">
+        <h2>Target Stats</h2>
+        <div class="form-row">
+            <div>
+                <label for="targetLevel">Target Level (1-99):</label>
+                <input type="number" id="targetLevel" min="1" max="99" 
+                       placeholder="Enter level" 
+                       oninput="updateXPFromLevel('target')"
+                       onkeypress="handleEnterKey(event, 'target', 'level')">
             </div>
-            <div class="form-group">
-                <label>
-                    <input type="checkbox" id="useLivePrices"> Use Live GE Prices
+            <div>
+                <label for="targetXP">Target XP:</label>
+                <input type="number" id="targetXP" min="0" 
+                       placeholder="Enter XP" 
+                       oninput="updateLevelFromXP('target')"
+                       onkeypress="handleEnterKey(event, 'target', 'xp')">
+            </div>
+        </div>
+        <button id="submitBtn" onclick="calculatePotions()" 
+                style="background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%); color: white; padding: 12px 24px; border: none; border-radius: 4px; font-size: 16px; cursor: pointer; margin-top: 10px; box-shadow: 0 2px 4px rgba(76, 175, 80, 0.3);" 
+                disabled>Calculate Potions</button>
+        
+        <div style="margin-top: 20px; padding: 15px; background: linear-gradient(135deg, #fef7ff 0%, #fef2f8 100%); border-radius: 8px; border: 1px solid #f3e8ff;">
+            <h3 style="margin-bottom: 10px;">Options</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                <label class="coming-soon" style="display: flex; align-items: center; font-weight: normal;">
+                    <input type="checkbox" id="useLivePrices" disabled style="margin-right: 8px;">
+                    Use real-time GE prices
+                    <span class="coming-soon-text">(coming soon)</span>
+                </label>
+                <label style="display: flex; align-items: center; font-weight: normal;">
+                    <input type="checkbox" id="hideUnavailable" onchange="calculatePotions()" style="margin-right: 8px;">
+                    Only show potions I can make
+                </label>
+                <label style="display: flex; align-items: center; font-weight: normal;">
+                    <input type="checkbox" id="useAmuletOfChemistry" onchange="calculatePotions()" style="margin-right: 8px;">
+                    Using Amulet of Chemistry (5% chance extra dose)
                 </label>
             </div>
-            <button class="btn" onclick="calculatePotion()">Calculate</button>
-            <button class="btn btn-secondary" onclick="loadLivePrices()">Update Live Prices</button>
         </div>
+    </div>
 
-        <div id="results" class="card" style="display: none;">
-            <h2>Calculation Results</h2>
-            <div id="resultContent"></div>
+    <div id="potionsSection" class="test-section" style="display: none;">
+        <h2>Potion Calculations</h2>
+        <div style="margin-bottom: 15px;">
+            <strong>XP Needed:</strong> <span id="xpNeeded">-</span> XP
         </div>
+        <table id="potionsTable" class="potions-table">
+            <thead>
+                <tr>
+                    <th onclick="sortTable(0)">Potion <span class="sort-indicator" id="sort-0">⇅</span></th>
+                    <th onclick="sortTable(1)">Level Req <span class="sort-indicator" id="sort-1">⇅</span></th>
+                    <th onclick="sortTable(2)">XP/Potion <span class="sort-indicator" id="sort-2">⇅</span></th>
+                    <th onclick="sortTable(3)">Potions Needed <span class="sort-indicator" id="sort-3">⇅</span></th>
+                    <th onclick="sortTable(4)">Grimy Herb <span class="sort-indicator" id="sort-4">⇅</span></th>
+                    <th onclick="sortTable(5)">Secondary <span class="sort-indicator" id="sort-5">⇅</span></th>
+                    <th onclick="sortTable(6)">Vial Cost <span class="sort-indicator" id="sort-6">⇅</span></th>
+                    <th onclick="sortTable(7)">Total Cost <span class="sort-indicator" id="sort-7">⇅</span></th>
+                    <th onclick="sortTable(8)">Revenue <span class="sort-indicator" id="sort-8">⇅</span></th>
+                    <th onclick="sortTable(9)">Profit/Loss <span class="sort-indicator" id="sort-9">⇅</span></th>
+                    <th onclick="sortTable(10)">GP/XP <span class="sort-indicator" id="sort-10">⇅</span></th>
+                </tr>
+            </thead>
+            <tbody id="potionsTableBody">
+                <!-- Table rows will be populated here -->
+            </tbody>
+        </table>
+    </div>
 
-        <div id="messages"></div>
+    <div class="test-section" style="display: none;">
+        <h2>Debug Info</h2>
+        <div id="debug" class="debug">
+            Ready to test...<br>
+            Try typing a level (1-99) or XP value and pressing Enter
+        </div>
     </div>
 
     <script>
-        // Potion data with XP values, levels, and ingredient info
+        // Official OSRS XP table for levels 1-99
+        const xpTable = [
+            0, 0, 83, 174, 276, 388, 512, 650, 801, 969, 1154, 1358, 1584, 1833, 2107, 2411, 2746, 3115, 3523, 3973, 4470, 5018, 5624, 6291, 7028, 7842, 8740, 9730, 10824, 12031, 13363, 14833, 16456, 18247, 20224, 22406, 24815, 27473, 30408, 33648, 37224, 41171, 45529, 50339, 55649, 61512, 67983, 75127, 83014, 91721, 101333, 111945, 123660, 136594, 150872, 166636, 184040, 203254, 224466, 247886, 273742, 302288, 333804, 368599, 407015, 449428, 496254, 547953, 605032, 668051, 737627, 814445, 899257, 992895, 1096278, 1210421, 1336443, 1475581, 1629200, 1798808, 1986068, 2192818, 2421087, 2673114, 2951373, 3258594, 3597792, 3972294, 4385776, 4842295, 5346332, 5902831, 6517253, 7195629, 7944614, 8771558, 9684577, 10692629, 11805606, 13034431
+        ];
+
+        let isUpdating = false;
+        let sortDirection = {}; // Track sort direction for each column
+
+        // Potion data with icons
         const potionData = {
-            attack: { level: 3, xp: 25, herb: 'guam', secondary: 'eye_of_newt', name: 'Attack Potion' },
-            antipoison: { level: 5, xp: 37.5, herb: 'marrentill', secondary: 'unicorn_horn_dust', name: 'Antipoison' },
-            strength: { level: 12, xp: 50, herb: 'tarromin', secondary: 'limpwurt_root', name: 'Strength Potion' },
-            serum_207: { level: 15, xp: 50, herb: 'tarromin', secondary: 'ashes', name: 'Serum 207' },
-            relicyms_balm: { level: 8, xp: 40, herb: 'rogue_purse', secondary: 'snake_weed', name: "Relicym's Balm" },
-            restore: { level: 22, xp: 62.5, herb: 'harralander', secondary: 'red_spiders_eggs', name: 'Restore Potion' },
-            energy: { level: 26, xp: 67.5, herb: 'harralander', secondary: 'chocolate_dust', name: 'Energy Potion' },
-            defence: { level: 30, xp: 75, herb: 'ranarr', secondary: 'white_berries', name: 'Defence Potion' },
-            agility: { level: 34, xp: 80, herb: 'toadflax', secondary: 'toad_legs', name: 'Agility Potion' },
-            combat: { level: 36, xp: 84, herb: 'harralander', secondary: 'goat_horn_dust', name: 'Combat Potion' },
-            prayer: { level: 38, xp: 87.5, herb: 'ranarr', secondary: 'snape_grass', name: 'Prayer Potion' },
-            super_attack: { level: 45, xp: 100, herb: 'irit', secondary: 'eye_of_newt', name: 'Super Attack' },
-            super_antipoison: { level: 48, xp: 106.3, herb: 'irit', secondary: 'unicorn_horn_dust', name: 'Super Antipoison' },
-            fishing: { level: 50, xp: 112.5, herb: 'avantoe', secondary: 'snape_grass', name: 'Fishing Potion' },
-            super_energy: { level: 52, xp: 117.5, herb: 'avantoe', secondary: 'mort_myre_fungus', name: 'Super Energy' },
-            super_strength: { level: 55, xp: 125, herb: 'kwuarm', secondary: 'limpwurt_root', name: 'Super Strength' },
-            super_restore: { level: 63, xp: 142.5, herb: 'snapdragon', secondary: 'red_spiders_eggs', name: 'Super Restore' },
-            super_defence: { level: 66, xp: 150, herb: 'cadantine', secondary: 'white_berries', name: 'Super Defence' },
-            antifire: { level: 69, xp: 157.5, herb: 'lantadyme', secondary: 'dragon_scale_dust', name: 'Antifire Potion' },
-            ranging: { level: 72, xp: 162.5, herb: 'dwarf_weed', secondary: 'wine_of_zamorak', name: 'Ranging Potion' },
-            magic: { level: 76, xp: 172.5, herb: 'lantadyme', secondary: 'potato_cactus', name: 'Magic Potion' },
-            stamina: { level: 77, xp: 25.5, herb: 'super_energy', secondary: 'amylase_crystal', name: 'Stamina Potion' },
-            extended_antifire: { level: 84, xp: 110, herb: 'antifire', secondary: 'lava_scale_shard', name: 'Extended Antifire' },
-            antivenom: { level: 87, xp: 120, herb: 'antidote_plus_plus', secondary: 'zulrah_scale', name: 'Antivenom' },
-            super_combat: { level: 90, xp: 150, herb: 'torstol', secondary: 'barbarian_herblore', name: 'Super Combat Potion' },
-            antivenom_plus: { level: 94, xp: 125, herb: 'antivenom', secondary: 'magic_fang', name: 'Antivenom+' },
-            extended_super_antifire: { level: 98, xp: 160, herb: 'extended_antifire', secondary: 'crushed_superior_dragon_bones', name: 'Extended Super Antifire' }
+            attack: { level: 3, xp: 25, herb: 'guam', secondary: 'eye_of_newt', name: 'Attack Potion', icon: 'https://oldschool.runescape.wiki/images/Attack_potion%283%29.png?1467b' },
+            antipoison: { level: 5, xp: 37.5, herb: 'marrentill', secondary: 'unicorn_horn_dust', name: 'Antipoison', icon: 'https://oldschool.runescape.wiki/images/Antipoison%283%29.png?365c8' },
+            strength: { level: 12, xp: 50, herb: 'tarromin', secondary: 'limpwurt_root', name: 'Strength Potion', icon: 'https://oldschool.runescape.wiki/images/Strength_potion%283%29.png?4b9bb' },
+            serum_207: { level: 15, xp: 50, herb: 'tarromin', secondary: 'ashes', name: 'Serum 207', icon: 'https://oldschool.runescape.wiki/images/Serum_207%283%29.png?1a2f5' },
+            relicyms_balm: { level: 8, xp: 40, herb: 'rogue_purse', secondary: 'snake_weed', name: "Relicym's Balm", icon: 'https://oldschool.runescape.wiki/images/Relicym%27s_balm%283%29.png?f2ad0' },
+            restore: { level: 22, xp: 62.5, herb: 'harralander', secondary: 'red_spiders_eggs', name: 'Restore Potion', icon: 'https://oldschool.runescape.wiki/images/Restore_potion%283%29.png?7ea5b' },
+            energy: { level: 26, xp: 67.5, herb: 'harralander', secondary: 'chocolate_dust', name: 'Energy Potion', icon: 'https://oldschool.runescape.wiki/images/Energy_potion%283%29.png?5d1f5' },
+            defence: { level: 30, xp: 75, herb: 'ranarr', secondary: 'white_berries', name: 'Defence Potion', icon: 'https://oldschool.runescape.wiki/images/Defence_potion%283%29.png?ca906' },
+            agility: { level: 34, xp: 80, herb: 'toadflax', secondary: 'toad_legs', name: 'Agility Potion', icon: 'https://oldschool.runescape.wiki/images/Agility_potion%283%29.png?0b6f7' },
+            combat: { level: 36, xp: 84, herb: 'harralander', secondary: 'goat_horn_dust', name: 'Combat Potion', icon: 'https://oldschool.runescape.wiki/images/Combat_potion%283%29.png?3c35b' },
+            prayer: { level: 38, xp: 87.5, herb: 'ranarr', secondary: 'snape_grass', name: 'Prayer Potion', icon: 'https://oldschool.runescape.wiki/images/Prayer_potion%283%29.png?2616c' },
+            super_attack: { level: 45, xp: 100, herb: 'irit', secondary: 'eye_of_newt', name: 'Super Attack', icon: 'https://oldschool.runescape.wiki/images/Super_attack%283%29.png?68cff' },
+            super_antipoison: { level: 48, xp: 106.3, herb: 'irit', secondary: 'unicorn_horn_dust', name: 'Super Antipoison', icon: 'https://oldschool.runescape.wiki/images/Super_antipoison%283%29.png?6ba54' },
+            fishing: { level: 50, xp: 112.5, herb: 'avantoe', secondary: 'snape_grass', name: 'Fishing Potion', icon: 'https://oldschool.runescape.wiki/images/Fishing_potion%283%29.png?0e1c8' },
+            super_energy: { level: 52, xp: 117.5, herb: 'avantoe', secondary: 'mort_myre_fungus', name: 'Super Energy', icon: 'https://oldschool.runescape.wiki/images/Super_energy%283%29.png?f1a5c' },
+            super_strength: { level: 55, xp: 125, herb: 'kwuarm', secondary: 'limpwurt_root', name: 'Super Strength', icon: 'https://oldschool.runescape.wiki/images/Super_strength%283%29.png?a3b25' },
+            super_restore: { level: 63, xp: 142.5, herb: 'snapdragon', secondary: 'red_spiders_eggs', name: 'Super Restore', icon: 'https://oldschool.runescape.wiki/images/Super_restore%283%29.png?2d0bc' },
+            super_defence: { level: 66, xp: 150, herb: 'cadantine', secondary: 'white_berries', name: 'Super Defence', icon: 'https://oldschool.runescape.wiki/images/Super_defence%283%29.png?ff82a' },
+            antifire: { level: 69, xp: 157.5, herb: 'lantadyme', secondary: 'dragon_scale_dust', name: 'Antifire Potion', icon: 'https://oldschool.runescape.wiki/images/Antifire_potion%283%29.png?92fd5' },
+            ranging: { level: 72, xp: 162.5, herb: 'dwarf_weed', secondary: 'wine_of_zamorak', name: 'Ranging Potion', icon: 'https://oldschool.runescape.wiki/images/Ranging_potion%283%29.png?ff5b5' },
+            magic: { level: 76, xp: 172.5, herb: 'lantadyme', secondary: 'potato_cactus', name: 'Magic Potion', icon: 'https://oldschool.runescape.wiki/images/Magic_potion%283%29.png?b86ae' },
+            stamina: { level: 77, xp: 25.5, herb: 'super_energy', secondary: 'amylase_crystal', name: 'Stamina Potion', icon: 'https://oldschool.runescape.wiki/images/Stamina_potion%283%29.png?bc86e' },
+            extended_antifire: { level: 84, xp: 110, herb: 'antifire', secondary: 'lava_scale_shard', name: 'Extended Antifire', icon: 'https://oldschool.runescape.wiki/images/Extended_antifire%283%29.png?77d8d' },
+            antivenom: { level: 87, xp: 120, herb: 'antidote_plus_plus', secondary: 'zulrah_scale', name: 'Antivenom', icon: 'https://oldschool.runescape.wiki/images/Antivenom%283%29.png?b1b31' },
+            super_combat: { level: 90, xp: 150, herb: 'torstol', secondary: 'barbarian_herblore', name: 'Super Combat Potion', icon: 'https://oldschool.runescape.wiki/images/Super_combat_potion%283%29.png?b8dc4' },
+            antivenom_plus: { level: 94, xp: 125, herb: 'antivenom', secondary: 'magic_fang', name: 'Antivenom+', icon: 'https://oldschool.runescape.wiki/images/Antivenom%2B%283%29.png?79795' },
+            extended_super_antifire: { level: 98, xp: 160, herb: 'extended_antifire', secondary: 'crushed_superior_dragon_bones', name: 'Extended Super Antifire', icon: 'https://oldschool.runescape.wiki/images/Extended_super_antifire%283%29.png?eac3a' }
         };
 
-        // Sample prices (these would normally come from GE API)
-        let currentPrices = {
-            // Herbs
+        // Sample prices
+        const currentPrices = {
+            // Grimy herbs
             guam: 15, marrentill: 25, tarromin: 35, harralander: 50, ranarr: 7500, toadflax: 2500,
             irit: 800, avantoe: 1500, kwuarm: 1200, snapdragon: 9000, cadantine: 1300, lantadyme: 1400,
-            dwarf_weed: 1800, torstol: 25000,
+            dwarf_weed: 1800, torstol: 25000, rogue_purse: 30,
             // Secondaries
             eye_of_newt: 3, unicorn_horn_dust: 600, limpwurt_root: 800, ashes: 20, snake_weed: 15,
             red_spiders_eggs: 250, chocolate_dust: 50, white_berries: 15, toad_legs: 200, goat_horn_dust: 100,
             snape_grass: 15, mort_myre_fungus: 400, dragon_scale_dust: 200, wine_of_zamorak: 1500,
             potato_cactus: 800, amylase_crystal: 1200, lava_scale_shard: 15000, zulrah_scale: 200,
-            magic_fang: 5000000, crushed_superior_dragon_bones: 50000,
+            magic_fang: 5000000, crushed_superior_dragon_bones: 50000, antidote_plus_plus: 5000,
+            barbarian_herblore: 0, super_energy: 2200, antifire: 3000, antivenom: 12000, extended_antifire: 8000,
             // Vials
             vial_of_water: 5,
             // Finished potions (3-dose)
@@ -352,258 +318,340 @@
             antivenom_plus_potion: 25000, extended_super_antifire_potion: 45000
         };
 
-        // XP table for levels 1-99
-        const xpTable = [0, 0, 83, 174, 276, 388, 512, 650, 801, 969, 1154, 1358, 1584, 1833, 2107, 2411, 2746, 3115, 3523, 3973, 4470, 5018, 5624, 6291, 7028, 7842, 8740, 9730, 10824, 12031, 13363, 14833, 16456, 18247, 20224, 22406, 24815, 27473, 30408, 33648, 37224, 41171, 45529, 50339, 55649, 61512, 67983, 75127, 83014, 91721, 101333, 111945, 123660, 136594, 150872, 166636, 184040, 203254, 224466, 247886, 273742, 302288, 333804, 368599, 407015, 449428, 496254, 547953, 605032, 668051, 737627, 814445, 899257, 992895, 1096278, 1210421, 1336443, 1475581, 1629200, 1798808, 1986068, 2192818, 2421087, 2673114, 2951373, 3258594, 3597792, 3972294, 4385776, 4842295, 5346332, 5902831, 6517253, 7195629, 7944614, 8771558, 9684577, 10692629, 11805606, 13034431];
-
-        let playerData = null;
-
-        function showMessage(message, type = 'info') {
-            const messagesDiv = document.getElementById('messages');
-            const messageDiv = document.createElement('div');
-            messageDiv.className = type === 'error' ? 'error' : 'success';
-            messageDiv.textContent = message;
-            messagesDiv.appendChild(messageDiv);
-            
-            setTimeout(() => {
-                messagesDiv.removeChild(messageDiv);
-            }, 5000);
+        function debug(message) {
+            // Debug logging disabled for production
         }
 
         function getLevelFromXP(xp) {
-            for (let i = xpTable.length - 1; i >= 0; i--) {
-                if (xp >= xpTable[i]) {
-                    return i;
+            if (!xp || xp < 0) return 1;
+            if (xp >= 13034431) return 99;
+            
+            for (let level = 99; level >= 1; level--) {
+                if (xp >= xpTable[level]) {
+                    return level;
                 }
             }
             return 1;
         }
 
         function getXPForLevel(level) {
+            if (!level || level < 1) return 0;
+            if (level > 99) return 13034431;
             return xpTable[level] || 0;
         }
 
-        async function loadPlayerStats() {
-            const username = document.getElementById('username').value.trim();
-            const targetLevel = parseInt(document.getElementById('targetLevel').value);
-            
-            if (!username) {
-                showMessage('Please enter a username', 'error');
+        function updateXPFromLevel(type) {
+            if (isUpdating) {
+                debug(`updateXPFromLevel(${type}) - skipped (already updating)`);
                 return;
             }
             
-            if (!targetLevel || targetLevel < 1 || targetLevel > 99) {
-                showMessage('Please enter a valid target level (1-99)', 'error');
+            const levelInput = document.getElementById(`${type}Level`);
+            const xpInput = document.getElementById(`${type}XP`);
+            
+            if (!levelInput || !xpInput) {
+                debug(`updateXPFromLevel(${type}) - ERROR: inputs not found`);
                 return;
             }
+            
+            const level = parseInt(levelInput.value);
+            debug(`updateXPFromLevel(${type}) - level input: ${level}`);
+            
+            if (level >= 1 && level <= 99) {
+                isUpdating = true;
+                const requiredXP = getXPForLevel(level);
+                xpInput.value = requiredXP;
+                debug(`updateXPFromLevel(${type}) - set XP to: ${requiredXP}`);
+                isUpdating = false;
+            } else if (levelInput.value === '') {
+                isUpdating = true;
+                xpInput.value = '';
+                debug(`updateXPFromLevel(${type}) - cleared XP (level cleared)`);
+                isUpdating = false;
+            }
+            
+            checkSubmitButton();
+        }
 
-            try {
-                showMessage('Loading player stats...');
+        function updateLevelFromXP(type) {
+            if (isUpdating) {
+                debug(`updateLevelFromXP(${type}) - skipped (already updating)`);
+                return;
+            }
+            
+            const levelInput = document.getElementById(`${type}Level`);
+            const xpInput = document.getElementById(`${type}XP`);
+            
+            if (!levelInput || !xpInput) {
+                debug(`updateLevelFromXP(${type}) - ERROR: inputs not found`);
+                return;
+            }
+            
+            const xp = parseInt(xpInput.value);
+            debug(`updateLevelFromXP(${type}) - XP input: ${xp}`);
+            
+            if (xp >= 0) {
+                isUpdating = true;
+                const level = getLevelFromXP(xp);
+                levelInput.value = level;
+                debug(`updateLevelFromXP(${type}) - set level to: ${level}`);
+                isUpdating = false;
+            } else if (xpInput.value === '') {
+                isUpdating = true;
+                levelInput.value = '';
+                debug(`updateLevelFromXP(${type}) - cleared level (XP cleared)`);
+                isUpdating = false;
+            }
+            
+            checkSubmitButton();
+        }
+
+        function handleEnterKey(event, type, fieldType) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                debug(`handleEnterKey - Enter pressed on ${type} ${fieldType}`);
                 
-                // Try to fetch from OSRS API
-                const response = await fetch(`https://secure.runescape.com/m=hiscore_oldschool/index_lite.ws?player=${encodeURIComponent(username)}`);
-                
-                if (!response.ok) {
-                    throw new Error('Player not found or API unavailable');
+                if (fieldType === 'level') {
+                    updateXPFromLevel(type);
+                } else if (fieldType === 'xp') {
+                    updateLevelFromXP(type);
                 }
                 
-                const data = await response.text();
-                const lines = data.split('\n');
-                
-                // Herblore is skill index 15
-                const herbloreData = lines[15].split(',');
-                const level = parseInt(herbloreData[1]);
-                const xp = parseInt(herbloreData[2]);
-                
-                playerData = {
-                    username: username,
-                    currentLevel: level,
-                    currentXP: xp,
-                    targetLevel: targetLevel,
-                    targetXP: getXPForLevel(targetLevel),
-                    xpNeeded: getXPForLevel(targetLevel) - xp
-                };
-                
-                displayPlayerStats();
-                showMessage('Player stats loaded successfully!');
-                
-            } catch (error) {
-                // If API fails, allow manual entry
-                playerData = {
-                    username: username,
-                    currentLevel: 1,
-                    currentXP: 0,
-                    targetLevel: targetLevel,
-                    targetXP: getXPForLevel(targetLevel),
-                    xpNeeded: getXPForLevel(targetLevel)
-                };
-                
-                displayPlayerStats();
-                showMessage('Could not load stats from API. Using default values. You can manually adjust if needed.', 'error');
+                checkSubmitButton();
             }
         }
 
-        function displayPlayerStats() {
-            document.getElementById('currentLevel').textContent = playerData.currentLevel;
-            document.getElementById('currentXP').textContent = playerData.currentXP.toLocaleString();
-            document.getElementById('targetXP').textContent = playerData.targetXP.toLocaleString();
-            document.getElementById('xpNeeded').textContent = Math.max(0, playerData.xpNeeded).toLocaleString();
+        function checkSubmitButton() {
+            const currentLevel = parseInt(document.getElementById('currentLevel').value);
+            const currentXP = parseInt(document.getElementById('currentXP').value);
+            const targetLevel = parseInt(document.getElementById('targetLevel').value);
+            const targetXP = parseInt(document.getElementById('targetXP').value);
             
-            document.getElementById('playerStats').style.display = 'block';
-        }
-
-        async function loadLivePrices() {
-            try {
-                showMessage('Loading live prices...');
-                
-                // In a real implementation, you would fetch from the OSRS GE API
-                // For now, we'll simulate with some price variations
-                const priceVariations = [0.8, 0.9, 1.0, 1.1, 1.2];
-                
-                Object.keys(currentPrices).forEach(item => {
-                    const variation = priceVariations[Math.floor(Math.random() * priceVariations.length)];
-                    currentPrices[item] = Math.floor(currentPrices[item] * variation);
-                });
-                
-                showMessage('Live prices updated!');
-                
-            } catch (error) {
-                showMessage('Could not load live prices. Using default prices.', 'error');
+            const submitBtn = document.getElementById('submitBtn');
+            
+            // Check if we have valid current stats
+            const hasValidCurrent = (currentLevel >= 1 && currentLevel <= 99) && (currentXP >= 0);
+            
+            // Check if we have valid target (either level or XP)
+            const hasValidTarget = (targetLevel >= 1 && targetLevel <= 99) || (targetXP > 0);
+            
+            if (hasValidCurrent && hasValidTarget) {
+                // Make sure target is higher than current
+                const finalTargetXP = targetXP > 0 ? targetXP : getXPForLevel(targetLevel);
+                if (finalTargetXP > currentXP) {
+                    submitBtn.disabled = false;
+                    submitBtn.style.opacity = '1';
+                    debug('Submit button enabled!');
+                } else {
+                    submitBtn.disabled = true;
+                    submitBtn.style.opacity = '0.5';
+                    debug('Submit disabled - target must be higher than current');
+                }
+            } else {
+                submitBtn.disabled = true;
+                submitBtn.style.opacity = '0.5';
+                debug('Submit disabled - missing required fields');
             }
         }
 
-        function calculatePotion() {
-            const potionType = document.getElementById('potionType').value;
-            const useLivePrices = document.getElementById('useLivePrices').checked;
+        function calculatePotions() {
+            const currentLevel = parseInt(document.getElementById('currentLevel').value);
+            const currentXP = parseInt(document.getElementById('currentXP').value);
+            const targetLevel = parseInt(document.getElementById('targetLevel').value);
+            const targetXP = parseInt(document.getElementById('targetXP').value);
+            const hideUnavailable = document.getElementById('hideUnavailable').checked;
+            const useAmuletOfChemistry = document.getElementById('useAmuletOfChemistry').checked;
             
-            if (!potionType) {
-                showMessage('Please select a potion type', 'error');
-                return;
-            }
+            const finalTargetXP = targetXP > 0 ? targetXP : getXPForLevel(targetLevel);
+            const xpNeeded = finalTargetXP - currentXP;
             
-            if (!playerData) {
-                showMessage('Please load player stats first', 'error');
-                return;
-            }
+            debug(`Calculating potions: Need ${xpNeeded} XP (${currentXP} → ${finalTargetXP})`);
             
-            const potion = potionData[potionType];
+            document.getElementById('xpNeeded').textContent = xpNeeded.toLocaleString();
             
-            if (playerData.currentLevel < potion.level) {
-                showMessage(`You need level ${potion.level} to make ${potion.name}`, 'error');
-                return;
-            }
+            const tableBody = document.getElementById('potionsTableBody');
+            tableBody.innerHTML = '';
             
-            if (playerData.xpNeeded <= 0) {
-                showMessage('You have already reached your target level!', 'error');
-                return;
-            }
-            
-            // Calculate how many potions needed
-            const potionsNeeded = Math.ceil(playerData.xpNeeded / potion.xp);
-            
-            // Calculate costs
-            const grimyHerbCost = currentPrices[potion.herb] * potionsNeeded;
-            const secondaryCost = currentPrices[potion.secondary] * potionsNeeded;
-            const vialCost = currentPrices.vial_of_water * potionsNeeded;
-            
-            // Calculate cleaning XP (2.5 XP per herb)
-            const cleaningXP = potionsNeeded * 2.5;
-            
-            // Total costs
-            const totalCost = grimyHerbCost + secondaryCost + vialCost;
-            
-            // Calculate selling price of finished potions
-            const finishedPotionPrice = currentPrices[potionType + '_potion'] || 0;
-            const totalRevenue = finishedPotionPrice * potionsNeeded;
-            
-            // Calculate profit/loss
-            const profitLoss = totalRevenue - totalCost;
-            
-            // Display results
-            displayResults({
-                potionName: potion.name,
-                potionsNeeded: potionsNeeded,
-                grimyHerbCost: grimyHerbCost,
-                secondaryCost: secondaryCost,
-                vialCost: vialCost,
-                totalCost: totalCost,
-                cleaningXP: cleaningXP,
-                potionXP: potionsNeeded * potion.xp,
-                totalXP: cleaningXP + (potionsNeeded * potion.xp),
-                totalRevenue: totalRevenue,
-                profitLoss: profitLoss,
-                herbName: potion.herb,
-                secondaryName: potion.secondary
+            Object.entries(potionData).forEach(([key, potion]) => {
+                // Check if player can make this potion
+                const canMake = currentLevel >= potion.level;
+                
+                if (hideUnavailable && !canMake) {
+                    return; // Skip potions above current level
+                }
+                
+                // Calculate requirements
+                let potionsNeeded = Math.ceil(xpNeeded / potion.xp);
+                
+                // Amulet of Chemistry effect: 5% chance of extra dose = 1.05x efficiency
+                // This means you need ~5% fewer potions to make
+                if (useAmuletOfChemistry && canMake) {
+                    potionsNeeded = Math.ceil(potionsNeeded / 1.05);
+                }
+                
+                const cleaningXP = potionsNeeded * 2.5; // XP from cleaning grimy herbs
+                const makingXP = potionsNeeded * potion.xp; // XP from making potions
+                const totalXP = cleaningXP + makingXP;
+                
+                // Calculate costs
+                const herbCost = (currentPrices[potion.herb] || 0) * potionsNeeded;
+                const secondaryCost = (currentPrices[potion.secondary] || 0) * potionsNeeded;
+                const vialCost = (currentPrices.vial_of_water || 0) * potionsNeeded;
+                const totalCost = herbCost + secondaryCost + vialCost;
+                
+                // Calculate revenue (with amulet bonus if applicable)
+                const finishedPotionPrice = currentPrices[key + '_potion'] || 0;
+                let effectivePotionsProduced = potionsNeeded;
+                if (useAmuletOfChemistry && canMake) {
+                    effectivePotionsProduced = Math.floor(potionsNeeded * 1.05); // 5% bonus
+                }
+                const totalRevenue = finishedPotionPrice * effectivePotionsProduced;
+                
+                // Calculate profit/loss
+                const profitLoss = totalRevenue - totalCost;
+                const gpPerXP = totalXP > 0 ? (totalCost / totalXP) : 0;
+                
+                // Create table row
+                const row = document.createElement('tr');
+                if (!canMake) {
+                    row.style.opacity = '0.6';
+                    row.style.background = '#f5f5f5';
+                }
+                
+                const profitColor = profitLoss >= 0 ? '#4CAF50' : '#f44336';
+                const profitClass = profitLoss >= 0 ? 'profit' : 'loss';
+                
+                const amuletBonus = useAmuletOfChemistry && canMake ? ` (+${Math.floor(potionsNeeded * 0.05)} bonus)` : '';
+                
+                row.innerHTML = `
+                    <td class="potion-name">
+                        <img src="${potion.icon}" alt="${potion.name}" class="potion-icon" onerror="this.style.display='none'">
+                        ${potion.name}${!canMake ? ' (Level ' + potion.level + ' req)' : ''}
+                    </td>
+                    <td>${potion.level}</td>
+                    <td>${potion.xp}</td>
+                    <td>${potionsNeeded.toLocaleString()}${amuletBonus}</td>
+                    <td>${potion.herb.replace(/_/g, ' ')}<br><small>${herbCost.toLocaleString()} GP</small></td>
+                    <td>${potion.secondary.replace(/_/g, ' ')}<br><small>${secondaryCost.toLocaleString()} GP</small></td>
+                    <td>${vialCost.toLocaleString()} GP</td>
+                    <td>${totalCost.toLocaleString()} GP</td>
+                    <td>${totalRevenue.toLocaleString()} GP</td>
+                    <td class="${profitClass}">${profitLoss >= 0 ? '+' : ''}${profitLoss.toLocaleString()} GP</td>
+                    <td>${gpPerXP.toFixed(2)}</td>
+                `;
+
+                // Store sort data as attributes
+                row.setAttribute('data-potion', potion.name);
+                row.setAttribute('data-level', potion.level);
+                row.setAttribute('data-xp', potion.xp);
+                row.setAttribute('data-potions-needed', potionsNeeded);
+                row.setAttribute('data-herb', potion.herb);
+                row.setAttribute('data-secondary', potion.secondary);
+                row.setAttribute('data-vial-cost', vialCost);
+                row.setAttribute('data-total-cost', totalCost);
+                row.setAttribute('data-revenue', totalRevenue);
+                row.setAttribute('data-profit', profitLoss);
+                row.setAttribute('data-gp-xp', gpPerXP);
+                row.setAttribute('data-can-make', canMake);
+                
+                tableBody.appendChild(row);
             });
+            
+            document.getElementById('potionsSection').style.display = 'block';
+            debug(`Generated table with ${tableBody.children.length} available potions`);
         }
 
-        function displayResults(results) {
-            const resultsDiv = document.getElementById('results');
-            const contentDiv = document.getElementById('resultContent');
+        function sortTable(columnIndex) {
+            const table = document.getElementById('potionsTable');
+            const tbody = table.querySelector('tbody');
+            const rows = Array.from(tbody.querySelectorAll('tr'));
             
-            const profitClass = results.profitLoss >= 0 ? 'profit' : 'loss';
-            const profitText = results.profitLoss >= 0 ? 'Profit' : 'Loss';
+            // Toggle sort direction
+            const isAscending = sortDirection[columnIndex] !== true;
+            sortDirection[columnIndex] = isAscending;
             
-            contentDiv.innerHTML = `
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-value">${results.potionsNeeded.toLocaleString()}</div>
-                        <div class="stat-label">Potions Needed</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-value">${results.totalXP.toLocaleString()}</div>
-                        <div class="stat-label">Total XP Gained</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-value">${results.totalCost.toLocaleString()}</div>
-                        <div class="stat-label">Total Cost (GP)</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-value ${profitClass}">${Math.abs(results.profitLoss).toLocaleString()}</div>
-                        <div class="stat-label">${profitText} (GP)</div>
-                    </div>
-                </div>
+            // Update sort indicators
+            document.querySelectorAll('.sort-indicator').forEach((indicator, index) => {
+                if (index === columnIndex) {
+                    indicator.textContent = isAscending ? '↑' : '↓';
+                } else {
+                    indicator.textContent = '⇅';
+                }
+            });
+            
+            // Sort rows
+            rows.sort((a, b) => {
+                let aVal, bVal;
                 
-                <table class="results-table">
-                    <thead>
-                        <tr>
-                            <th>Item</th>
-                            <th>Quantity</th>
-                            <th>Unit Price</th>
-                            <th>Total Cost</th>
-                            <th>XP Gained</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Grimy ${results.herbName.replace('_', ' ')}</td>
-                            <td>${results.potionsNeeded.toLocaleString()}</td>
-                            <td>${currentPrices[results.herbName].toLocaleString()} GP</td>
-                            <td>${results.grimyHerbCost.toLocaleString()} GP</td>
-                            <td>${results.cleaningXP.toLocaleString()} (cleaning)</td>
-                        </tr>
-                        <tr>
-                            <td>${results.secondaryName.replace('_', ' ')}</td>
-                            <td>${results.potionsNeeded.toLocaleString()}</td>
-                            <td>${currentPrices[results.secondaryName].toLocaleString()} GP</td>
-                            <td>${results.secondaryCost.toLocaleString()} GP</td>
-                            <td>-</td>
-                        </tr>
-                        <tr>
-                            <td>Vial of Water</td>
-                            <td>${results.potionsNeeded.toLocaleString()}</td>
-                            <td>${currentPrices.vial_of_water.toLocaleString()} GP</td>
-                            <td>${results.vialCost.toLocaleString()} GP</td>
-                            <td>-</td>
-                        </tr>
-                        <tr style="background-color: #f0f8ff;">
-                            <td><strong>${results.potionName} (3-dose)</strong></td>
-                            <td><strong>${results.potionsNeeded.toLocaleString()}</strong></td>
-                            <td><strong>${(currentPrices[document.getElementById('potionType').value + '_potion'] || 0).toLocaleString()} GP</strong></td>
-                            <td><strong>${results.potionXP.toLocaleString()} XP</strong></td>
-                            <td><strong>${results.potionXP.toLocaleString()} (making)</strong></td>
-                        </tr>
-                    </tbody>
-                </table>
+                switch(columnIndex) {
+                    case 0: // Potion name
+                        aVal = a.getAttribute('data-potion');
+                        bVal = b.getAttribute('data-potion');
+                        break;
+                    case 1: // Level
+                        aVal = parseInt(a.getAttribute('data-level'));
+                        bVal = parseInt(b.getAttribute('data-level'));
+                        break;
+                    case 2: // XP per potion
+                        aVal = parseFloat(a.getAttribute('data-xp'));
+                        bVal = parseFloat(b.getAttribute('data-xp'));
+                        break;
+                    case 3: // Potions needed
+                        aVal = parseInt(a.getAttribute('data-potions-needed'));
+                        bVal = parseInt(b.getAttribute('data-potions-needed'));
+                        break;
+                    case 4: // Herb
+                        aVal = a.getAttribute('data-herb');
+                        bVal = b.getAttribute('data-herb');
+                        break;
+                    case 5: // Secondary
+                        aVal = a.getAttribute('data-secondary');
+                        bVal = b.getAttribute('data-secondary');
+                        break;
+                    case 6: // Vial cost
+                        aVal = parseInt(a.getAttribute('data-vial-cost'));
+                        bVal = parseInt(b.getAttribute('data-vial-cost'));
+                        break;
+                    case 7: // Total cost
+                        aVal = parseInt(a.getAttribute('data-total-cost'));
+                        bVal = parseInt(b.getAttribute('data-total-cost'));
+                        break;
+                    case 8: // Revenue
+                        aVal = parseInt(a.getAttribute('data-revenue'));
+                        bVal = parseInt(b.getAttribute('data-revenue'));
+                        break;
+                    case 9: // Profit/Loss
+                        aVal = parseInt(a.getAttribute('data-profit'));
+                        bVal = parseInt(b.getAttribute('data-profit'));
+                        break;
+                    case 10: // GP/XP
+                        aVal = parseFloat(a.getAttribute('data-gp-xp'));
+                        bVal = parseFloat(b.getAttribute('data-gp-xp'));
+                        break;
+                    default:
+                        return 0;
+                }
                 
-                <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px;">
-                    <h3>Summary</h3
+                if (typeof aVal === 'string') {
+                    aVal = aVal.toLowerCase();
+                    bVal = bVal.toLowerCase();
+                }
+                
+                if (aVal < bVal) return isAscending ? -1 : 1;
+                if (aVal > bVal) return isAscending ? 1 : -1;
+                return 0;
+            });
+            
+            // Re-append sorted rows
+            rows.forEach(row => tbody.appendChild(row));
+            
+            debug(`Sorted by column ${columnIndex} (${isAscending ? 'ascending' : 'descending'})`);
+        }
+
+        // Test the functions on page load
+        window.addEventListener('load', function() {
+            // Calculator ready
+        });
+    </script>
+</body>
+</html>
